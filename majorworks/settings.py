@@ -39,7 +39,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django.contrib.sites', # These are for the google Oauth
+    'allauth',                                      #
+    'allauth.account',                               #
+    'allauth.socialaccount',                         #
+    'allauth.socialaccount.providers.google', # These are for the google Oauth
 ]
+
+SITE_ID = 1 # Required for the libary AllAuth to work
+
+AUTHENTICATION_BACKENDS = [    # These backends tell django to check AllAuths database for oauthed users
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -49,9 +63,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'allauth.account.middleware.AccountMiddleware', # ADDED THIS FROM DEBUGGING
 ]
 
 ROOT_URLCONF = 'majorworks.urls'
+
+LOGIN_REDIRECT_URL = '/subhub' # Used to tell allauth where to redirect user to
+SOCIALACCOUNT_LOGIN_ON_GET = True # Tells allauth to go directly to signin and skip the inbuilt auth system that comes with it
 
 TEMPLATES = [
     {
