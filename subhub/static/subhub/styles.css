@@ -61,7 +61,7 @@
 }
 
 .messages li.success {
-    color: green;
+    color: rgb(0, 128, 0);
 }
 
 /* Basic button styling (for general use) */

@@ -16,6 +16,7 @@ def login_view(request):
         if user is not None:
             login(request, user)
             next_url = request.GET.get('next', reverse("subhub:home"))
+            messages.success(request, f"Successfully signed in as {username}.") # Sign in success message added, this brings parity to allauth libary included success message
             return HttpResponseRedirect(next_url)
         else:
             messages.error(request, "Invalid Credentials.")

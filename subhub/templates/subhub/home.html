@@ -1,4 +1,6 @@
+{% extends 'subhub/base.html' %}
 {% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,5 +27,17 @@
         {% endfor %}
         </ul>
     {% endif %}
+
+    <!-- This Javascript causes messages like login success to only show for 3 seconds-->
+    <script>
+    
+    setTimeout(function() {
+        document.querySelectorAll('.messages').forEach(function(el) {
+        el.style.display = 'none';
+        });
+    }, 3000);
+
+    </script>
 </body>
 </html>
+{% endblock %}

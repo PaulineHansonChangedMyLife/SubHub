@@ -21,7 +21,20 @@
             <input type="password" name="password" placeholder="Password" required>
             <input type="submit" value="Login">
         </form>
-        <a href="{% provider_login_url 'google' %}">Sign in with Google</a> 
+        <a href="{% provider_login_url 'google' %}">  <!-- This is the oAuth button-->
+            <img src="{% static 'subhub/google_signin.jpg' %}" style="width: 200px; cursor: pointer;">
+        </a>
     </div>
+
+    <!-- This Javascript causes messages like login success to only show for 3 seconds-->
+    <script>
+    
+    setTimeout(function() {
+        document.querySelectorAll('.messages').forEach(function(el) {
+        el.style.display = 'none';
+        });
+    }, 3000);
+
+    </script>
 </body>
 </html>
