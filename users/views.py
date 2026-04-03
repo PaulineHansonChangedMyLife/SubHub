@@ -20,7 +20,7 @@ def login_view(request):
             return HttpResponseRedirect(next_url)
         else:
             messages.error(request, "Invalid Credentials.")
-    return render(request, "users/login.html")
+    return render(request, "users/login.html", {"current_app": "users"})
 
 def logout_view(request):
     logout(request)

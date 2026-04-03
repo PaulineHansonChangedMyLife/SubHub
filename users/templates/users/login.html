@@ -1,5 +1,7 @@
+{% extends 'subhub/base.html' %}
 {% load static %}
 {% load socialaccount %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'subhub/styles.css' %}">
 </head>
 <body>
+    <p1></p1>
     {% if messages %}
         <ul class="messages">
         {% for message in messages %}
@@ -14,7 +17,7 @@
         {% endfor %}
         </ul>
     {% endif %}
-    <div class="login-container">
+    <div class="login-container" style="padding-top: 20px;"> <!-- Added padding to the top-->
         <form action="{% url 'users:login' %}" method="post">
             {% csrf_token %}
             <input type="text" name="username" placeholder="Username" required>
@@ -38,3 +41,4 @@
     </script>
 </body>
 </html>
+{% endblock %}

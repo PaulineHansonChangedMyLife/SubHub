@@ -1,5 +1,30 @@
 {% load static %}
-<h1>{% block title %}SubHub{% endblock %}</h1>
+<Title>{% block title %}SubHub{% endblock %}</Title>
+<div class="header">
+
+        <div class="logo">
+            <img src="{% static 'subhub/logo_90.jpg' %}" alt="Logo">
+        </div>
+        <div class="page">
+            {% if current_app == "subhub" %}
+            <h1>Welcome To SubHub</h1>
+            {% endif %}
+            {% if current_app == "users" %}
+            <h1>Sign In</h1>
+            {% endif %}
+        </div>
+        <div class="user-info">
+            <span>{{ request.user.username }}</span>
+            {% if request.user.is_authenticated %}
+            <form action="{% url 'users:logout' %}" method="post" style="margin: 0; margin-left: 20px;">
+                {% csrf_token %}
+                <button type="submit">Log out</button>
+            </form>
+            {% else %}
+            <button type="submit" style="visibility: hidden; margin-left: 20px;">Log Out</button> <!-- Made log out hidden when not authenticated to preserve header height-->
+            {% endif %}
+        </div>
+    </div>   
 <main>
     {% block content %}
     {% endblock %}
