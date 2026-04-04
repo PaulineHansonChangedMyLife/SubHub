@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-#from .models import Subscription
+from .models import Subscription
 from .forms import addsubscriptionform
 
 
@@ -22,7 +22,16 @@ from django.contrib import messages
 
 @login_required(login_url='users:login')
 def home(request):
-    return render(request, "subhub/home.html", {"current_app": "subhub"}) # Current app added to return so we can determine what page we are on
+    current_app = "subhub"
+    subscriptions = Subscription.objects.filter(
+        user=request.user
+    ).order_by('-due_date')
+
+    context = {
+        'current_app' : current_app,
+        'subscriptions' : subscriptions,
+    }
+    return render(request, "subhub/home.html", context) # Current app added to return so we can determine what page we are on
 
 @login_required
 def signinmessage():

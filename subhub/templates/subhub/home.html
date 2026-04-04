@@ -29,19 +29,63 @@
 
 
 <div class="main">
-    <h1>Add a new subscription</h1>
-  <!--  <form method="post">               REVIEW WHY THIS ONE DOESNT WORK
+    <div class ="addsub">
+        <h1>Add a new subscription</h1>
+    <!--  <form method="post">               REVIEW WHY THIS ONE DOESNT WORK
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">'subhub:add_subscription'</button>
+        </form> -->
+
+        <form method="post" action="{% url 'subhub:add_subscription' %}">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">'subhub:add_subscription'</button>
-    </form> -->
-
-    <form method="post" action="{% url 'subhub:add_subscription' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add Subscription</button>
-</form>
-
+        <button type="submit">Add Subscription</button>
+        </form>
+    </div>
+    {% if current_app == "subhub" %}
+    <div class ="viewsubs">
+        <h1>Subscriptions</h1>
+        <div style="max-height: 300px; overflow-y: auto; margin-bottom: 16px;">
+            <table style="border-collapse: collapse; width: 100%;">
+                <thead>
+                    <tr>
+                        <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">
+                            Due
+                        </th>
+                        <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">
+                            Price
+                        </th>
+                        <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">
+                            Category
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for sub in subscriptions %}
+                    <tr>
+                        <td style="padding: 8px; border-bottom: 1px solid #eee;">
+                            {{ sub.due_date }}
+                        </td>
+                        <td style="padding: 8px; border-bottom: 1px solid #eee;">
+                            ${{ sub.price }}
+                        </td>
+                        <td style="padding: 8px; border-bottom: 1px solid #eee;">
+                            {{ sub.category }}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3" style="padding: 8px;">
+                            No subscriptions to display.
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
 </div>
 </body>
 </html>

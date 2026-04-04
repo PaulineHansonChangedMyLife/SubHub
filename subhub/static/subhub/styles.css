@@ -2,12 +2,20 @@
 .header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex;
     background-color: #f4f4f4;
     padding: 10px 20px;
     border-bottom: 1px solid #ddd;
 }
 
+.main {
+    display: flex;
+    margin-top: 20px;
+   /* justify-content: space-between; */
+    gap: 40px;
+    align-items: flex-start;
+    padding: 10px 20px;
+}
 /* Style for the logo in the header */
 .logo img {
     max-height: 50px;
