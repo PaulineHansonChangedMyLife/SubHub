@@ -53,14 +53,20 @@ def add_subscription(request):
     return render(request, "subhub/home.html", {"form": form, "current_app": "addsub"})
              # CHANGE RENDER TO add-subscription.html when I want more customisation
 
-def delete_subscription(request, subscription_id):
-    subscription = get_object_or_404(Subscription, id=subscription_id)
-    if subscription.user == request.user:
-        subscription.delete()
-        messages.success(request, "Your subscription has been successfully deleted!")
-    return redirect('subhub:home')
-
 def edit_subscription(request, subscription_id):
+    subscription = get_object_or_404(Subscription, id=subscription_id)
+    if subscription.user != request.user:  # Ensure only the subscription owner can edit
+        return redirect('subhub:home')
+    if request.method == 'POST': 
+        form = addsubscriptionform(request.POST, instance=subscription)
+        if form.is_valid():
+            form.save()
+            return redirect('subhub:home')
+    else:
+        form = addsubscriptionform(instance=subscription)
+    return render(request, 'subhub/edit-subscription.html', {'form': form, 'subscription': subscription, "current_app": "editsub"})
+
+def delete_subscription(request, subscription_id):
     subscription = get_object_or_404(Subscription, id=subscription_id)
     if subscription.user == request.user:
         subscription.delete()

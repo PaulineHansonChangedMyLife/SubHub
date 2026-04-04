@@ -1,5 +1,10 @@
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
 <Title>{% block title %}SubHub{% endblock %}</Title>
+<link rel="stylesheet" href="{% static 'subhub/styles.css' %}">
+</head>
 <div class="header">
 
         <div class="logo">
@@ -14,6 +19,9 @@
             {% endif %}
             {% if current_app == "addsub" %}
             <h1>Add Subscription</h1>
+            {% endif %}
+            {% if current_app == "editsub" %}
+            <h1>Edit Subscription</h1>
             {% endif %}
         </div>
         <div class="user-info">
