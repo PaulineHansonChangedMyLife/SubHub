@@ -12,14 +12,19 @@
             {% if current_app == "users" %}
             <h1>Sign In</h1>
             {% endif %}
+            {% if current_app == "addsub" %}
+            <h1>Add Subscription</h1>
+            {% endif %}
         </div>
         <div class="user-info">
             <span>{{ request.user.username }}</span>
             {% if request.user.is_authenticated %}
-            <form action="{% url 'subhub:home' %}" method="post" style="margin: 0; margin-left: 20px;">
-                {% csrf_token %}
-                <button type="submit", style="background-color: rgb(0, 255, 0);">Home</button>
-            </form>
+                {% if current_app != "subhub" %}
+                <form action="{% url 'subhub:home' %}" method="post" style="margin: 0; margin-left: 20px;">
+                    {% csrf_token %}
+                    <button type="submit", style="background-color: rgb(0, 255, 0);">Home</button>
+                </form>
+                {% endif %}
             <form action="{% url 'users:logout' %}" method="post" style="margin: 0; margin-left: 20px;">
                 {% csrf_token %}
                 <button type="submit">Log out</button>

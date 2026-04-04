@@ -41,7 +41,7 @@ def add_subscription(request):
             return redirect('subhub:home')
     else:
         form = addsubscriptionform()
-    return render(request, "subhub/home.html", {"form": form, "current_app": "subhub"})
+    return render(request, "subhub/home.html", {"form": form, "current_app": "addsub"})
              # CHANGE RENDER TO add-subscription.html when I want more customisation
 
 
