@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('subhub:home')
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
