@@ -26,8 +26,22 @@
     }, 3000);
 
     </script>
+
+
 <div class="main">
     <h1>Add a new subscription</h1>
+  <!--  <form method="post">               REVIEW WHY THIS ONE DOESNT WORK
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">'subhub:add_subscription'</button>
+    </form> -->
+
+    <form method="post" action="{% url 'subhub:add_subscription' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Subscription</button>
+</form>
+
 </div>
 </body>
 </html>
