@@ -3,5 +3,7 @@ from . import views
 
 urlpatterns = [
    path("", views.home, name="home"),
-   path('add-subscription/', views.add_subscription, name='add_subscription')
+   path('add-subscription/', views.add_subscription, name='add_subscription'),
+   path('edit-subscription/<int:subscription_id>', views.edit_subscription, name='edit_subscription'),
+   path('delete-subscription/<int:subscription_id>', views.delete_subscription, name='delete_subscription'),
 ]

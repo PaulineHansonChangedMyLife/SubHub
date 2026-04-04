@@ -51,6 +51,9 @@
                 <thead>
                     <tr>
                         <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">
+                            Name
+                        </th>
+                        <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">
                             Due
                         </th>
                         <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">
@@ -59,11 +62,17 @@
                         <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">
                             Category
                         </th>
+                        <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">
+                            Modify
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                 {% for sub in subscriptions %}
                     <tr>
+                        <td style="padding: 8px; border-bottom: 1px solid #eee;">
+                            {{ sub.name }}
+                        </td>
                         <td style="padding: 8px; border-bottom: 1px solid #eee;">
                             {{ sub.due_date }}
                         </td>
@@ -72,6 +81,13 @@
                         </td>
                         <td style="padding: 8px; border-bottom: 1px solid #eee;">
                             {{ sub.category }}
+                        </td>
+                        <td style="padding: 8px; border-bottom: 1px solid #eee;">
+                            <div class = "flex">
+                                <a href="{% url 'subhub:edit_subscription' sub.id %}">Edit</a>  <!-- sub.id tells it to look at ids for each subscription-->
+                                <div class = lineadjustment><u> | </u></div>
+                                <a href="{% url 'subhub:delete_subscription' sub.id %}" onclick="return confirm('Are you sure?')">Delete</a> 
+                            </div>
                         </td>
                     </tr>
                 {% empty %}

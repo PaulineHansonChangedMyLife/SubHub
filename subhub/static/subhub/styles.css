@@ -21,6 +21,16 @@
     max-height: 50px;
 }
 
+.lineadjustment {  /* Used to adjust the divider in between edit and delete */
+    margin-top: 5px;
+}
+
+.flex {
+    display: flex;
+    align-items: flex-start;
+    
+}
+
 /* User info section within the header */
 .user-info {
     display: flex;

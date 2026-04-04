@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django.shortcuts import get_object_or_404
 # Create your views here.
 
 from django.shortcuts import render
@@ -27,7 +27,7 @@ def home(request):
         user=request.user
     ).order_by('-due_date')
 
-    context = {
+    context = {        # Context system means less clutter in the return render
         'current_app' : current_app,
         'subscriptions' : subscriptions,
     }
@@ -53,7 +53,18 @@ def add_subscription(request):
     return render(request, "subhub/home.html", {"form": form, "current_app": "addsub"})
              # CHANGE RENDER TO add-subscription.html when I want more customisation
 
+def delete_subscription(request, subscription_id):
+    subscription = get_object_or_404(Subscription, id=subscription_id)
+    if subscription.user == request.user:
+        subscription.delete()
+        messages.success(request, "Your subscription has been successfully deleted!")
+    return redirect('subhub:home')
 
-
+def edit_subscription(request, subscription_id):
+    subscription = get_object_or_404(Subscription, id=subscription_id)
+    if subscription.user == request.user:
+        subscription.delete()
+        messages.success(request, "Your subscription has been successfully deleted!")
+    return redirect('subhub:home')
 
  
