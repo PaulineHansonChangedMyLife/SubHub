@@ -73,4 +73,8 @@ def delete_subscription(request, subscription_id):
         messages.success(request, "Your subscription has been successfully deleted!")
     return redirect('subhub:home')
 
- 
+def create_budget(request):
+    return redirect('subhub:home')
+
+def edit_budget(request):
+    return redirect('subhub:home')

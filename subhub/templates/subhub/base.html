@@ -26,6 +26,9 @@
         </div>
         <div class="user-info">
             <span>{{ request.user.username }}</span>
+            {% if request.user.profile.balance %}
+                <span>${{ request.user.profile.balance }}</span>
+            {% endif %}
             {% if request.user.is_authenticated %}
                 {% if current_app != "subhub" %}
                 <form action="{% url 'subhub:home' %}" method="post" style="margin: 0; margin-left: 20px;">
