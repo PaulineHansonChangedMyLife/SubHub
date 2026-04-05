@@ -105,14 +105,14 @@
     <div class = "Budget">
         {% if request.user.profile.balance %}
         <h1>Edit Budget</h1>
-        <form method="post" action="{% url 'subhub:edit_budget' %}">
+        <form method="post" action="{% url 'users:edit_budget' %}">
         {% csrf_token %}
         {{ form.as_p }} <!-- form.as_p wraps each tag in <p> tags -->
         <button type="submit">Edit Budget</button>
         </form>
         {% else %}
         <h1>Create Budget</h1>
-        <form method="post" action="{% url 'subhub:create_budget' %}">
+        <form method="post" action="{% url 'users:create_budget' %}">
         {% csrf_token %}
         {{ form.as_p }} <!-- form.as_p wraps each tag in <p> tags -->
         <button type="submit">Create Budget</button>

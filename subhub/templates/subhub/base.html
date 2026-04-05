@@ -23,6 +23,12 @@
             {% if current_app == "editsub" %}
             <h1>Edit Subscription</h1>
             {% endif %}
+            {% if current_app == "createbudget" %}
+            <h1>Create Budget</h1>
+            {% endif %}
+            {% if current_app == "editbudget" %}
+            <h1>Edit Budget</h1>
+            {% endif %}
         </div>
         <div class="user-info">
             <span>{{ request.user.username }}</span>

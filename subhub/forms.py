@@ -7,6 +7,3 @@ class addsubscriptionform(forms.ModelForm):
     class Meta:
         model = Subscription
         fields = ['name', 'price', 'reocurrance', 'category', 'due_date']
-
-
-    
