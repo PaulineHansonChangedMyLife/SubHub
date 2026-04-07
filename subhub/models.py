@@ -8,13 +8,13 @@ class Subscription(models.Model): # Subscription model | Needed to track every u
     price = models.DecimalField(max_digits =10, decimal_places=2)
 
     class reocurrance(models.TextChoices):
-        daily = 'daily', 'daily'
-        weekly = 'weekly', 'weekly'
-        biweekly = 'biweekly', 'biweekly'
-        monthly = 'monthly', 'monthly'
-        trimonthly = 'trimonthly', 'trimonthly'
-        biyearly = 'biyearly', 'biyearly'
-        anually = 'anually', 'anually'
+        Daily = 'Daily', 'Daily'
+        Weekly = 'Weekly', 'Weekly'
+        Biweekly = 'Biweekly', 'Biweekly'
+        Monthly = 'Monthly', 'Monthly'
+        Trimonthly = 'Trimonthly', 'Trimonthly'
+        Biyearly = 'Biyearly', 'Biyearly'
+        Anually = 'Anually', 'Anually'
 
     class category(models.TextChoices):
         fixed = 'fixed', 'fixed'

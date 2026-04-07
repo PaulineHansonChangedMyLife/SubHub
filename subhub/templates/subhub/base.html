@@ -30,11 +30,15 @@
             <h1>Edit Budget</h1>
             {% endif %}
         </div>
+        {% if request.user.is_authenticated %}
         <div class="user-info">
             <span>{{ request.user.username }}</span>
             {% if request.user.profile.balance %}
-                <span>${{ request.user.profile.balance }}</span>
+            <span>|</span>
+                <span>{{ request.user.profile.reocurrance }} budget:</span>
+                <span style ="color: rgb(0, 238, 0); margin-left: -5px;">${{ request.user.profile.balance }}</span>
             {% endif %}
+        {% endif %}
             {% if request.user.is_authenticated %}
                 {% if current_app != "subhub" %}
                 <form action="{% url 'subhub:home' %}" method="get" style="margin: 0; margin-left: 20px;">

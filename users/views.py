@@ -38,8 +38,10 @@ def create_budget(request):
         form = createbudgetform(request.POST)
         if form.is_valid():
             amount = form.cleaned_data['balance']
+            reocurrance = form.cleaned_data['reocurrance']
             profile = request.user.profile
             profile.balance = amount
+            profile.reocurrance = reocurrance
             profile.save()
             messages.success(request, "Your budget has been created!")
             return redirect('subhub:home')
@@ -57,13 +59,15 @@ def edit_budget(request):
         form = editbudgetform(request.POST)
         if form.is_valid():
             amount = form.cleaned_data['balance']
+            reocurrance = form.cleaned_data['reocurrance']
             profile = request.user.profile
             profile.balance = amount
+            profile.reocurrance = reocurrance
             profile.save()
             messages.success(request, "Your budget has been successfully edited!")
             return redirect('subhub:home')
     else: # This is the GET request
-        form = editbudgetform(initial={'balance': request.user.profile.balance})# Initial causes the form to have the 'initial' field contain the pre-existing balance amount
+        form = editbudgetform(initial={'balance': request.user.profile.balance, 'reocurrance': request.user.profile.reocurrance})# Initial causes the form to have the 'initial' field contain the pre-existing balance amount
     return render(request, 'users/edit-budget.html', {'form': form, "current_app": "editbudget"}) # Send the blank form to the template
 
 

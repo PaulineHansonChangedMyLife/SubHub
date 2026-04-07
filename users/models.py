@@ -16,7 +16,21 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     #subscription = models.ManyToManyField(Subscription, related_name='subscriptions', blank=True, null=True)
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)  # User's current balance
+    
+    class reocurrance(models.TextChoices):
+        Daily = 'Daily', 'Daily'
+        Weekly = 'Weekly', 'Weekly'
+        Biweekly = 'Biweekly', 'Biweekly'
+        Monthly = 'Monthly', 'Monthly'
+        Trimonthly = 'Trimonthly', 'Trimonthly'
+        Biyearly = 'Biyearly', 'Biyearly'
+        Anually = 'Anually', 'Anually'
 
+    reocurrance = models.CharField(
+        max_length=20,
+        choices=reocurrance.choices,
+        db_index=True,
+    )
     def save(self, *args, **kwargs):
         self.clean()
         super().save(*args, **kwargs) 
