@@ -41,7 +41,7 @@ ReocurranceDict = {  # This allows me to map each string data attribute to an ac
 def home(request):
     now = timezone.now()
     current_app = "subhub"
-    delta = ReocurranceDict.get(request.user.profile.reocurrance) # Gets users 
+    delta = ReocurranceDict.get(request.user.profile.reocurrance, relativedelta(years=1)) # The relativedelta at the end is a fallback for if the user does not have a budget
     end = now + delta
     upcoming = Subscription.objects.filter(
         user=request.user,
@@ -71,6 +71,7 @@ def home(request):
         "upcoming" : upcoming,
         "sd" : sd,
         "financestatusName" : financestatusName,
+        
     }
     return render(request, "subhub/home.html", context) # Current app added to return so we can determine what page we are on
     

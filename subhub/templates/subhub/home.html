@@ -31,8 +31,13 @@
 {% if current_app == "subhub" %}
 <h1>Finance Overview</h1>
     <div class ="contents">
+        {% if request.user.profile.balance %}
         <div class ="surplusDefecit">
-            <h1>{{ financestatusName }}</h1>
+            {% if financestatusName == "Deficit" %}
+            <h1 style="color: red;";>{{ financestatusName }}</h1>
+            {% else %}
+            <h1 style="color: rgb(0, 255, 0);";>{{ financestatusName }}</h1>
+            {% endif %}
             <h1>You are ${{ sd }} in {{ financestatusName }} this period</h1>
         </div>
         <div class ="upcomingPayments">
@@ -42,6 +47,8 @@
             {% empty %}
             <p>No upcoming subscriptions.</p>
             {% endfor %}
+        {% endif %}
+        
         </div>
     </div>
 {% endif %}
