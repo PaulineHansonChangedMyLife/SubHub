@@ -11,7 +11,7 @@
 
 
 .overview {
-    /*display: flex;*/
+    display: flex;
     margin-top: 20px;
    /* justify-content: space-between; */
     gap: 40px;
@@ -19,20 +19,27 @@
     padding: 10px 20px;
     background-color: #fafafa;
     outline: 2px solid rgb(0, 0, 0);
+    flex-direction: column;
+
 }
 
 .contents {
     display: flex;
-    margin-top: 20px;
-   /* justify-content: space-between; */
+    margin-top: -25px;
+    /*justify-content: space-between;*/
     gap: 40px;
     align-items: flex-start;
-    padding: 0px 20px;
+    /*padding: 10px 20px;*/
     background-color: #fafafa;
     /*outline: 2px solid rgb(0, 0, 0);*/
+    flex-direction: row;
 }
-.ProfitLoss {
-    
+.surplusDefecit{
+
+}
+
+.upcomingPayments{
+
 }
 
 .main {

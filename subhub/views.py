@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import Subscription, timeConversions
+from .models import Subscription
 from .forms import addsubscriptionform
 from users.models import Profile
 
@@ -41,13 +41,23 @@ ReocurranceDict = {  # This allows me to map each string data attribute to an ac
 def home(request):
     now = timezone.now()
     current_app = "subhub"
-    delta = ReocurranceDict.get(request.user.profile.reocurrance)
+    delta = ReocurranceDict.get(request.user.profile.reocurrance) # Gets users 
     end = now + delta
     upcoming = Subscription.objects.filter(
         user=request.user,
         due_date__gte=now,
         due_date__lte=end,
     )
+    upcomingcost = sum(s.price for s in upcoming) # sum used to calculate the add of all of the subscriptions in upcoming together
+    balance = request.user.profile.balance
+    #print(balance) Debugging
+    sd = balance - upcomingcost  # SD is surplus or deficit calculations
+    if sd >= 0:
+        financestatusName = "Surplus"
+    if sd < 0:
+        financestatusName = "Deficit"
+        sd = sd - (sd + sd) # Swaps negative number to positive
+    #print(upcomingcost)
     subscriptions = Subscription.objects.filter(
         user=request.user
     ).order_by('-due_date')
@@ -59,6 +69,8 @@ def home(request):
         #'budget_form': budget_form,
         #'time' : time,
         "upcoming" : upcoming,
+        "sd" : sd,
+        "financestatusName" : financestatusName,
     }
     return render(request, "subhub/home.html", context) # Current app added to return so we can determine what page we are on
     
