@@ -47,9 +47,13 @@ def create_budget(request):
         form = createbudgetform() # Create a blank form
     return render(request, 'users/create-budget.html', {'form': form, "current_app": "createbudget"}) # Send the blank form to the template
 
+
+
+
 @login_required
 def edit_budget(request):
     if request.method == 'POST':
+        
         form = editbudgetform(request.POST)
         if form.is_valid():
             amount = form.cleaned_data['balance']
@@ -59,5 +63,7 @@ def edit_budget(request):
             messages.success(request, "Your budget has been successfully edited!")
             return redirect('subhub:home')
     else: # This is the GET request
-        form = editbudgetform()#instance=request.user.profilebalance)#initial={'balance': request.user.profile.balance}) # Initial causes the form to have the 'initial' field contain the pre-existing balance amount
+        form = editbudgetform(initial={'balance': request.user.profile.balance})# Initial causes the form to have the 'initial' field contain the pre-existing balance amount
     return render(request, 'users/edit-budget.html', {'form': form, "current_app": "editbudget"}) # Send the blank form to the template
+
+

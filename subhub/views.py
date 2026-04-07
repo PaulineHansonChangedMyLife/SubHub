@@ -18,6 +18,7 @@ from django.shortcuts import render, redirect
 
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from users.forms import createbudgetform, editbudgetform
 
 
 @login_required(login_url='users:login')
@@ -26,10 +27,12 @@ def home(request):
     subscriptions = Subscription.objects.filter(
         user=request.user
     ).order_by('-due_date')
-
+    #balance = request.user.profile.balance
+    #budget_form = editbudgetform(initial={'balance': balance}) if balance else createbudgetform()
     context = {        # Context system means less clutter in the return render
         'current_app' : current_app,
         'subscriptions' : subscriptions,
+        #'budget_form': budget_form,
     }
     return render(request, "subhub/home.html", context) # Current app added to return so we can determine what page we are on
 
@@ -50,7 +53,7 @@ def add_subscription(request):
             return redirect('subhub:home')
     else:
         form = addsubscriptionform()
-    return render(request, "subhub/home.html", {"form": form, "current_app": "addsub"})
+    return render(request, "subhub/add-subscription.html", {"form": form, "current_app": "addsub"})
              # CHANGE RENDER TO add-subscription.html when I want more customisation
 
 def edit_subscription(request, subscription_id):

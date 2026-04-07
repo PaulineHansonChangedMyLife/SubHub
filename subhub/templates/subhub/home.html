@@ -29,6 +29,7 @@
 
 
 <div class="main">
+    {% if current_app == "subhub" %}
     <div class ="addsub">
         <h1>Add a new subscription</h1>
     <!--  <form method="post">               REVIEW WHY THIS ONE DOESNT WORK
@@ -37,12 +38,13 @@
             <button type="submit">'subhub:add_subscription'</button>
         </form> -->
 
-        <form method="post" action="{% url 'subhub:add_subscription' %}">
+        <form method="get" action="{% url 'subhub:add_subscription' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ subscription_form.as_p }}
         <button type="submit">Add Subscription</button>
         </form>
     </div>
+    {% endif %}
     {% if current_app == "subhub" %}
     <div class ="viewsubs">
         <h1>Subscriptions</h1>
@@ -102,23 +104,25 @@
         </div>
     </div>
     {% endif %}
+    {% if current_app == "subhub" %}
     <div class = "Budget">
         {% if request.user.profile.balance %}
         <h1>Edit Budget</h1>
-        <form method="post" action="{% url 'users:edit_budget' %}">
+        <form method="get" action="{% url 'users:edit_budget' %}">
         {% csrf_token %}
-        {{ form.as_p }} <!-- form.as_p wraps each tag in <p> tags -->
+        {{ budget_form.as_p }} <!-- form.as_p wraps each tag in <p> tags -->
         <button type="submit">Edit Budget</button>
         </form>
         {% else %}
         <h1>Create Budget</h1>
-        <form method="post" action="{% url 'users:create_budget' %}">
+        <form method="get" action="{% url 'users:create_budget' %}"> <!-- Make sure to use get on these | This is why my initial balance wasnt showing up in the edit balance page-->
         {% csrf_token %}
-        {{ form.as_p }} <!-- form.as_p wraps each tag in <p> tags -->
+        {{ budget_form.as_p }} <!-- form.as_p wraps each tag in <p> tags -->
         <button type="submit">Create Budget</button>
         </form>
         {% endif %}
     </div>
+    {% endif %}
 </div>
 </body>
 </html>
