@@ -8,6 +8,33 @@
     border-bottom: 1px solid #ddd;
 }
 
+
+
+.overview {
+    /*display: flex;*/
+    margin-top: 20px;
+   /* justify-content: space-between; */
+    gap: 40px;
+    align-items: flex-start;
+    padding: 10px 20px;
+    background-color: #fafafa;
+    outline: 2px solid rgb(0, 0, 0);
+}
+
+.contents {
+    display: flex;
+    margin-top: 20px;
+   /* justify-content: space-between; */
+    gap: 40px;
+    align-items: flex-start;
+    padding: 0px 20px;
+    background-color: #fafafa;
+    /*outline: 2px solid rgb(0, 0, 0);*/
+}
+.ProfitLoss {
+    
+}
+
 .main {
     display: flex;
     margin-top: 20px;
@@ -15,6 +42,8 @@
     gap: 40px;
     align-items: flex-start;
     padding: 10px 20px;
+    background-color: #fafafa;
+    outline: 2px solid rgb(0, 0, 0);
 }
 /* Style for the logo in the header */
 .logo img {

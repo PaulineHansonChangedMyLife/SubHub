@@ -4,9 +4,9 @@ from django.shortcuts import get_object_or_404
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import Subscription
+from .models import Subscription, timeConversions
 from .forms import addsubscriptionform
-
+from users.models import Profile
 
 
 
@@ -19,11 +19,35 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from users.forms import createbudgetform, editbudgetform
+from django.utils import timezone # Timezone allows us to get the current time
+from datetime import timedelta # Allows us to find the difference between times. We need this in order to calculate relevant subscriptions
+from dateutil.relativedelta import relativedelta
+
+
+
+ReocurranceDict = {  # This allows me to map each string data attribute to an actual time
+    'Daily': relativedelta(days=1), # Dictionary eastablished
+    'Weekly': relativedelta(weeks=1),
+    'Biweekly': relativedelta(weeks=2),
+    'Monthly': relativedelta(months=1),
+    'Trimonthly': relativedelta(months=3),
+    'Biyearly': relativedelta(months=6),
+    'Anually': relativedelta(years=1),
+}
+
 
 
 @login_required(login_url='users:login')
 def home(request):
+    now = timezone.now()
     current_app = "subhub"
+    delta = ReocurranceDict.get(request.user.profile.reocurrance)
+    end = now + delta
+    upcoming = Subscription.objects.filter(
+        user=request.user,
+        due_date__gte=now,
+        due_date__lte=end,
+    )
     subscriptions = Subscription.objects.filter(
         user=request.user
     ).order_by('-due_date')
@@ -33,9 +57,11 @@ def home(request):
         'current_app' : current_app,
         'subscriptions' : subscriptions,
         #'budget_form': budget_form,
+        #'time' : time,
+        "upcoming" : upcoming,
     }
     return render(request, "subhub/home.html", context) # Current app added to return so we can determine what page we are on
-
+    
 @login_required
 def signinmessage():
     return 
@@ -75,3 +101,23 @@ def delete_subscription(request, subscription_id):
         subscription.delete()
         messages.success(request, "Your subscription has been successfully deleted!")
     return redirect('subhub:home')
+
+
+def SD(request):
+    if request.method == 'GET':
+        subscriptionPRE = get_object_or_404(Subscription)
+        subscription = subscriptionPRE
+        balance = get_object_or_404(Profile.balance)
+        reocurrance = get_object_or_404(Profile.reocurrance)
+        now = timezone.now()
+        next_day = now + relativedelta(days=1)
+        next_week = now + relativedelta(weeks=1)
+        next_2weeks = now + relativedelta(weeks=2)
+        next_month = now + relativedelta(months=1)
+        next_3months = now + relativedelta(months=3)
+        next_halfyear = now + relativedelta(years=0.5)
+        next_year = now + relativedelta(years=1)
+        print(f"HELLO {next_year}")
+        upcoming = Subscription.objects.filter(due_date__gte=now, due_date__lte=next_year) # gte means greater than or equal to, lte means less than or equal to.
+    
+    return render(request, 'subhub/home.html', {'upcoming': upcoming})

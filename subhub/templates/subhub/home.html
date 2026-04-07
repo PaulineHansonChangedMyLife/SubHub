@@ -27,6 +27,21 @@
 
     </script>
 
+<div class="overview">
+{% if current_app == "subhub" %}
+<h1>Finance Overview</h1>
+    <div class ="contents"></div>
+        <div class ="ProfitLoss">
+            <h1>{{ request.user.profile.financestatus }}</h1>
+            {% for sub in upcoming %}
+            <p>{{ sub.name }} - ${{ sub.price }} - {{ sub.due_date }}</p>
+            {% empty %}
+            <p>No upcoming subscriptions.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+</div>
 
 <div class="main">
     {% if current_app == "subhub" %}
