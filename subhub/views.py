@@ -42,16 +42,28 @@ def home(request):
     now = timezone.now()
     current_app = "subhub"
     delta = ReocurranceDict.get(request.user.profile.reocurrance, relativedelta(years=1)) # The relativedelta at the end is a fallback for if the user does not have a budget
+    
     end = now + delta
     upcoming = Subscription.objects.filter(
         user=request.user,
         due_date__gte=now,
         due_date__lte=end,
     )
-    upcomingcost = sum(s.price for s in upcoming) # sum used to calculate the add of all of the subscriptions in upcoming together
+    total_cost = 0  # Start with zero total cost
+
+    for sub in upcoming:  # For each subscription in the upcoming queryset/list
+        interval = ReocurranceDict.get(sub.reocurrance, relativedelta(years=1))  # Get the recurrence interval for this subscription
+        count = 0  # counter for how many times the subscription occurs within the time frame
+        current = now  # Start at the beginning of the window
+        while current < end:  # As long as the current date is before the end of the window
+            count += 1  # increase count by one
+            current += interval  # Move the current date forward by the recurrence interval
+        total_cost += sub.price * count  # Add the price of this subscription, multiplied by how many times it recurs, to the total cost
+
+        upcomingcost = sum(s.price for s in upcoming) # sum used to calculate the add of all of the subscriptions in upcoming together
     balance = request.user.profile.balance
     #print(balance) Debugging
-    sd = balance - upcomingcost  # SD is surplus or deficit calculations
+    sd = balance - total_cost  # SD is surplus or deficit calculations
     if sd >= 0:
         financestatusName = "Surplus"
     if sd < 0:

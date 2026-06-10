@@ -15,7 +15,7 @@ def ensure_profile(sender, instance: User, created, **kwargs):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     #subscription = models.ManyToManyField(Subscription, related_name='subscriptions', blank=True, null=True)
-    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)  # User's current balance
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True) # User's current balance
     #financestatus = models.CharField(max_length=10, blank=True)
     #financesd = models.DecimalField(max)
 

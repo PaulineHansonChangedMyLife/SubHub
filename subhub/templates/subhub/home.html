@@ -1,6 +1,8 @@
 {% extends 'subhub/base.html' %}
 {% load static %}
 {% block content %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,15 +42,18 @@
             {% endif %}
             <h1>You are ${{ sd }} in {{ financestatusName }} this period</h1>
         </div>
+        
         <div class ="upcomingPayments">
+            {% if upcoming %}
             <h1>Upcoming Payments</h1>
+            {% endif %}
             {% for sub in upcoming %}
-            <p>{{ sub.name }} - ${{ sub.price }} - {{ sub.due_date }}</p>
+            <p>{{ reocurrancetimes }} x -- {{ sub.name }} - ${{ sub.price }} - {{ sub.due_date }}</p>
             {% empty %}
             <p>No upcoming subscriptions.</p>
             {% endfor %}
         {% endif %}
-        
+
         </div>
     </div>
 {% endif %}

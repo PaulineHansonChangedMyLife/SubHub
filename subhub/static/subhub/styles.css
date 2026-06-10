@@ -42,6 +42,12 @@
 
 }
 
+.page {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%); /* transform translate shifts the element left by 50% of its width, this makes it so that not the left side of the text is in the middle, but the middle of the text is in the middle*/
+}
+
 .main {
     display: flex;
     margin-top: 20px;
