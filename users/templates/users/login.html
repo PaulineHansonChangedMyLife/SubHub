@@ -18,6 +18,18 @@
         </ul>
     {% endif %}
     <div class="login-container" style="padding-top: 20px;"> <!-- Added padding to the top-->
+        <a href="{% url 'users:login' %}" method="post"> Hi
+        </a>
+        <a href="{% url 'users:login' %}">Edit</a>  <!-- sub.id tells it to look at ids for each subscription-->
+
+        <form method="get" action="{% url 'users:login' %}"> <!-- Make sure to use get on these | This is why my initial balance wasnt showing up in the edit balance page-->
+        {% csrf_token %}
+        {{ sign_in_form.as_p }} <!-- form.as_p wraps each tag in <p> tags -->
+        <button type="submit">Log In</button>
+        </form>
+    </div>
+
+    <div class="login-container" style="padding-top: 20px;"> <!-- Added padding to the top-->
         <form action="{% url 'users:login' %}" method="post">
             {% csrf_token %}
             <input type="text" name="username" placeholder="Username" required>
@@ -28,7 +40,18 @@
             <img src="{% static 'subhub/google_signin.jpg' %}" style="width: 200px; cursor: pointer;">
         </a>
     </div>
-
+    {% if request.user.is_authenticated %}
+                    <a href="{% url 'subhub:home' %}">Home</a> <span>| Username: {{ request.user.profile.nickname }} | Balance:</span>
+                    <div
+                        class="bal"><span>${{ request.user.profile.balance }}</span>
+                    </div>
+                    <form action="{% url 'users:logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'users:sign_in' %}">Login</a> <a href="{% url 'users:register' %}">Register</a>
+                {% endif %}
     <!-- This Javascript causes messages like login success to only show for 3 seconds-->
     <script>
     

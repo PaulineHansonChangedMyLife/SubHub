@@ -1,0 +1,13 @@
+{% extends 'subhub/base.html' %}
+{% load static %}
+{% block content %}
+<div class="login-container" style="padding-top: 20px;"> <!-- Added padding to the top-->
+        <form action="{% url 'users:login' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Login">
+        </form>
+        </a>
+    </div>
+{% endblock %}

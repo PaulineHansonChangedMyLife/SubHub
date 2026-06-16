@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import createbudgetform, editbudgetform
+from .forms import createbudgetform, editbudgetform, UserRegistrationForm
 from django.shortcuts import get_object_or_404
 from .models import Profile
 
@@ -26,6 +26,17 @@ def login_view(request):
         else:
             messages.error(request, "Invalid Credentials.")
     return render(request, "users/login.html", {"current_app": "users"})
+
+def register_view(request):
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your account has been created! You can now log in.")
+            return redirect('users:login')
+    else:
+        form = UserRegistrationForm()
+    return render(request, 'users/register.html', {'form': form})
 
 def logout_view(request):
     logout(request)

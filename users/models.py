@@ -26,7 +26,7 @@ class Profile(models.Model):
         Monthly = 'Monthly', 'Monthly'
         Trimonthly = 'Trimonthly', 'Trimonthly'
         Biyearly = 'Biyearly', 'Biyearly'
-        Anually = 'Anually', 'Anually'
+        Anual = 'Anual', 'Anual'
 
     reocurrance = models.CharField(
         max_length=20,

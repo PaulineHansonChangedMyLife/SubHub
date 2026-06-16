@@ -48,7 +48,7 @@
             <h1>Upcoming Payments</h1>
             {% endif %}
             {% for sub in upcoming %}
-            <p>{{ reocurrancetimes }} x -- {{ sub.name }} - ${{ sub.price }} - {{ sub.due_date }}</p>
+            <p>{{ sub.name }} - ${{ sub.price }} - {{ sub.due_date }}</p>
             {% empty %}
             <p>No upcoming subscriptions.</p>
             {% endfor %}
@@ -146,7 +146,7 @@
         </form>
         {% else %}
         <h1>Create Budget</h1>
-        <form method="get" action="{% url 'users:create_budget' %}"> <!-- Make sure to use get on these | This is why my initial balance wasnt showing up in the edit balance page-->
+        <form method="get" action="{% url 'users:log_in' %}"> <!-- Make sure to use get on these | This is why my initial balance wasnt showing up in the edit balance page-->
         {% csrf_token %}
         {{ budget_form.as_p }} <!-- form.as_p wraps each tag in <p> tags -->
         <button type="submit">Create Budget</button>

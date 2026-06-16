@@ -32,7 +32,7 @@ ReocurranceDict = {  # This allows me to map each string data attribute to an ac
     'Monthly': relativedelta(months=1),
     'Trimonthly': relativedelta(months=3),
     'Biyearly': relativedelta(months=6),
-    'Anually': relativedelta(years=1),
+    'Anual': relativedelta(years=1),
 }
 
 
