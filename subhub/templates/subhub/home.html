@@ -10,24 +10,7 @@
     <link rel="stylesheet" href="{% static 'subhub/styles.css' %}">
 </head>
 <body>
-    {% if messages %}
-        <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-        </ul>
-    {% endif %}
 
-    <!-- This Javascript causes messages like login success to only show for 3 seconds-->
-    <script>
-    
-    setTimeout(function() {
-        document.querySelectorAll('.messages').forEach(function(el) {
-        el.style.display = 'none';
-        });
-    }, 3000);
-
-    </script>
 
 <div class="overview">
 {% if current_app == "subhub" %}
@@ -146,7 +129,7 @@
         </form>
         {% else %}
         <h1>Create Budget</h1>
-        <form method="get" action="{% url 'users:log_in' %}"> <!-- Make sure to use get on these | This is why my initial balance wasnt showing up in the edit balance page-->
+        <form method="get" action="{% url 'users:create_budget' %}"> <!-- Make sure to use get on these | This is why my initial balance wasnt showing up in the edit balance page-->
         {% csrf_token %}
         {{ budget_form.as_p }} <!-- form.as_p wraps each tag in <p> tags -->
         <button type="submit">Create Budget</button>

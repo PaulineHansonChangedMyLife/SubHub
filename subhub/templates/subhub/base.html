@@ -39,6 +39,7 @@
                 <span style ="color: rgb(0, 238, 0); margin-left: -5px;">${{ request.user.profile.balance }}</span>
             {% endif %}
         {% endif %}
+
             {% if request.user.is_authenticated %}
                 {% if current_app != "subhub" %}
                 <form action="{% url 'subhub:home' %}" method="get" style="margin: 0; margin-left: 20px;">
@@ -54,7 +55,30 @@
             <button type="submit" style="visibility: hidden; margin-left: 20px;">Log Out</button> <!-- Made log out hidden when not authenticated to preserve header height-->
             {% endif %}
         </div>
-    </div>   
+    </div> 
+</div>  
+</body>
+<!-- Messages stored in base.html so that they can be seen on every page that extends base.html (every page)-->
+    {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+        <!-- This Javascript causes messages like login success to only show for 3 seconds-->
+    <script>
+    
+    setTimeout(function() {
+        document.querySelectorAll('.messages').forEach(function(el) {
+        el.style.display = 'none';
+        });
+    }, 3000);
+
+    </script>
+    {% if not request.user.is_authenticated %}
+    <a href="{% url 'users:login' %}">LoginAAA</a> <a href="{% url 'users:register' %}">Register</a>
+    {% endif %}
 <main>
     {% block content %}
     {% endblock %}

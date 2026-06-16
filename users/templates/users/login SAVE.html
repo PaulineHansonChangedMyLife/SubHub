@@ -10,7 +10,24 @@
 </head>
 <body>
     <p1></p1>
+    {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    <div class="login-container" style="padding-top: 20px;"> <!-- Added padding to the top-->
+        <a href="{% url 'users:login' %}" method="post"> Hi
+        </a>
+        <a href="{% url 'users:login' %}">Edit</a>  <!-- sub.id tells it to look at ids for each subscription-->
 
+        <form method="get" action="{% url 'users:login' %}"> <!-- Make sure to use get on these | This is why my initial balance wasnt showing up in the edit balance page-->
+        {% csrf_token %}
+        {{ sign_in_form.as_p }} <!-- form.as_p wraps each tag in <p> tags -->
+        <button type="submit">Log In</button>
+        </form>
+    </div>
 
     <div class="login-container" style="padding-top: 20px;"> <!-- Added padding to the top-->
         <form action="{% url 'users:login' %}" method="post">
