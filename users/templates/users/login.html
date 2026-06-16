@@ -32,8 +32,6 @@
                         {% csrf_token %}
                         <button type="submit">Logout</button>
                     </form>
-                {% else %}
-                    <a href="{% url 'users:sign_in' %}">Login</a> <a href="{% url 'users:register' %}">Register</a>
                 {% endif %}
     <!-- This Javascript causes messages like login success to only show for 3 seconds-->
     <script>
