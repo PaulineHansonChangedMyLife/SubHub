@@ -43,6 +43,8 @@ class Subscription(models.Model): # Subscription model | Needed to track every u
         db_index=True,
     )
 
+    link = models.CharField(max_length=2000, blank=True, null=True) # Set the link that your subscription points to
+
     def __str__(self):
         return self.name
 

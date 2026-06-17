@@ -96,7 +96,11 @@
                 {% for sub in subscriptions %}
                     <tr>
                         <td style="padding: 8px; border-bottom: 1px solid #eee;">
+                        {% if sub.link %}
+                            <a href="{{ sub.link }}";>{{ sub.name }}</a>
+                        {% else %}
                             {{ sub.name }}
+                        {% endif %}
                         </td>
                         <td style="padding: 8px; border-bottom: 1px solid #eee;">
                             {{ sub.due_date }}

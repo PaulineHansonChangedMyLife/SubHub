@@ -6,7 +6,7 @@ from .models import Subscription
 class addsubscriptionform(forms.ModelForm):
     class Meta:
         model = Subscription
-        fields = ['name', 'price', 'reocurrance', 'category', 'due_date']
+        fields = ['name', 'price', 'reocurrance', 'category', 'due_date', 'link']
         widgets = {
             'due_date': forms.DateInput(attrs={'type': 'date'}), # This adds a date picker on a calendar
         }
