@@ -36,10 +36,19 @@
             <p>No upcoming subscriptions.</p>
             {% endfor %}
         {% endif %}
-
         </div>
+
+    <div class ="nobudget">
+    {% if not request.user.profile.balance %}
+    <b>Please create a budget to start</b> <form method="get" action="{% url 'users:create_budget' %}">
+        {% csrf_token %}
+        {{ budget_form.as_p }}
+        <button type="submit">Create Budget</button>
+        </form>
+    {% endif %}
     </div>
 {% endif %}
+    </div>
 </div>
 
 <div class="main">
